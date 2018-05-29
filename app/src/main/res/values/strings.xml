@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">RealTimeVote</string>
+    <string name="create_vote">Create Vote</string>
+    <string name="vote">Vote</string>
+    <string name="add_contestant">Add contestant</string>
+    <string name="contestant_name">Contestant name</string>
+</resources>

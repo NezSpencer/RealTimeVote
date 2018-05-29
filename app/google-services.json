@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "374765750345",
+    "firebase_url": "https://realtimevote.firebaseio.com",
+    "project_id": "realtimevote",
+    "storage_bucket": "realtimevote.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374765750345:android:3f2d9188d653b361",
+        "android_client_info": {
+          "package_name": "com.nezspencer.realtimevote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "374765750345-ql6esu8pkihs7065si7i8jhc27nca134.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nezspencer.realtimevote",
+            "certificate_hash": "c7a24b05905ea7ac763341ea53131733dd698926"
+          }
+        },
+        {
+          "client_id": "374765750345-3pfsq5bfq9f6oladra1nf6rjo0dbprak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARytvkkqGHKx_fl-yIY_N_Mw45FZoEj4Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "374765750345-3pfsq5bfq9f6oladra1nf6rjo0dbprak.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

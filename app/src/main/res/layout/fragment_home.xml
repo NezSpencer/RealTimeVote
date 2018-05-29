@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".auth.AuthActivity">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/v1"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/v2"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/h1"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_vote"
+            app:layout_constraintStart_toEndOf="@+id/v1"
+            app:layout_constraintLeft_toRightOf="@+id/v1"
+            android:background="@color/colorAccent"
+            android:textColor="@color/app_white"
+            android:text="@string/vote"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/v2"
+            app:layout_constraintRight_toLeftOf="@+id/v2"
+            app:layout_constraintTop_toBottomOf="@+id/h1"
+            android:layout_width="0dp"
+            android:layout_height="60dp" />
+
+        <Button
+            android:id="@+id/btn_create_vote"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toEndOf="@+id/v1"
+            app:layout_constraintLeft_toRightOf="@+id/v1"
+            android:background="@color/colorAccent"
+            android:textColor="@color/app_white"
+            android:textSize="16sp"
+            android:text="@string/create_vote"
+            app:layout_constraintEnd_toStartOf="@+id/v2"
+            app:layout_constraintRight_toLeftOf="@+id/v2"
+            app:layout_constraintTop_toBottomOf="@+id/btn_vote"
+            android:layout_width="0dp"
+            android:layout_height="60dp" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

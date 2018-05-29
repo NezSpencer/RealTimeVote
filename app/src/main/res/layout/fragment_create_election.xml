@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/inter_block_margin"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_vote_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_vote_action"
+            android:layout_width="wrap_content"
+            app:elevation="@dimen/default_elevation"
+            app:fabSize="auto"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/ic_create_vote"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+</layout>
