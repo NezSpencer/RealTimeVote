@@ -4,4 +4,6 @@
     <string name="vote">Vote</string>
     <string name="add_contestant">Add contestant</string>
     <string name="contestant_name">Contestant name</string>
+    <string name="add_new_election">Add new Election</string>
+    <string name="election_name">Election name</string>
 </resources>

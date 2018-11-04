@@ -1,32 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <FrameLayout
         android:layout_width="match_parent"
-        android:paddingStart="@dimen/inter_view_margin"
-        android:paddingEnd="@dimen/inter_view_margin"
         android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tv_empty_view"
-            android:hint="@string/add_contestant"
-            android:drawablePadding="@dimen/inter_view_margin"
-            android:drawableEnd="@drawable/ic_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
         <RelativeLayout
-            android:id="@+id/contestant_item"
             android:layout_width="match_parent"
-            android:visibility="gone"
+            android:layout_marginBottom="@dimen/small_margin"
+            android:paddingStart="@dimen/inter_view_margin"
+            android:paddingEnd="@dimen/inter_view_margin"
             android:layout_height="wrap_content">
 
             <RadioButton
                 android:id="@+id/rb_contestant"
                 android:layout_alignParentStart="true"
                 android:layout_width="wrap_content"
+                android:layout_alignBottom="@+id/et_contestant_name"
                 android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/et_contestant_name"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:inputType="textCapWords"
                 android:hint="@string/contestant_name"
                 android:layout_toEndOf="@+id/rb_contestant"
