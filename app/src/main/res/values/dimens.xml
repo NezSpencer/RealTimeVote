@@ -9,4 +9,6 @@
     <dimen name="default_card_elevation">3dp</dimen>
     <dimen name="default_card_corner_curve">3dp</dimen>
     <dimen name="small_margin">5dp</dimen>
+    <dimen name="main_text">16sp</dimen>
+    <dimen name="sub_text">13sp</dimen>
 </resources>

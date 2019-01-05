@@ -5,16 +5,15 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.nezspencer.realtimevote.Election
-import com.nezspencer.realtimevote.State
-import com.nezspencer.realtimevote.Status
-import com.nezspencer.realtimevote.auth.AppActivity
+import com.nezspencer.realtimevote.*
 import com.nezspencer.realtimevote.auth.AppViewModel
 import com.nezspencer.realtimevote.databinding.FragmentCreateElectionBinding
+import com.nezspencer.realtimevote.model.Election
 
 class FragmentCreateElection : Fragment() {
 
@@ -50,11 +49,13 @@ class FragmentCreateElection : Fragment() {
         })
 
         binding.cardAddNewElection.setOnClickListener {
-
-            electionAdapter.refreshList(Election())
+            val election = Election()
+            val modifiedEmail = getUserEmail(activity).removeDots()
+            Log.e("test", modifiedEmail)
+            electionAdapter.refreshList(election)
         }
         binding.fabVoteAction.setOnClickListener {
-            viewModel.createElection()
+            viewModel.createElection(getUserEmail(activity))
         }
         return binding.root
     }

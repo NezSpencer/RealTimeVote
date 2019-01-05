@@ -1,6 +1,7 @@
 package com.nezspencer.realtimevote
 
 import android.app.Application
+import com.nezspencer.realtimevote.model.Election
 
 class App : Application() {
 companion object {

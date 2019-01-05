@@ -6,14 +6,13 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.nezspencer.realtimevote.App
-import com.nezspencer.realtimevote.Contestant
 import com.nezspencer.realtimevote.databinding.ContestantEmptyBinding
 import com.nezspencer.realtimevote.databinding.ContestantItemBinding
 
 class AddContestantAdapter(private val PARENT_POSITION: Int) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var contestants: ArrayList<Contestant> = App.elections[PARENT_POSITION].contestants
+    private var contestants: ArrayList<String> = App.elections[PARENT_POSITION].contestants
     private val ITEM_FOOTER: Int = 0
     private val ITEM_CONTENT: Int = 1
 
@@ -37,7 +36,7 @@ class AddContestantAdapter(private val PARENT_POSITION: Int) :
             val footerHolder: FooterHolder = holder as FooterHolder
             footerHolder.itemBinding.tvEmptyView.setOnClickListener { view ->
                 run {
-                    contestants.add(Contestant())
+                    contestants.add("")
                     notifyItemInserted(contestants.size)
                 }
             }
@@ -51,11 +50,11 @@ class AddContestantAdapter(private val PARENT_POSITION: Int) :
                 }
 
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    contestants[holder.adapterPosition].name = p0.toString()
+                    contestants[holder.adapterPosition] = p0.toString()
                 }
             })
             contentHolder.itemBinding.etContestantName.setText(contestants[contentHolder
-                    .adapterPosition].name)
+                    .adapterPosition])
 
 
         }
