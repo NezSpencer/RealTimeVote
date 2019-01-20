@@ -31,7 +31,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun openFragment(fragment: Fragment) {
-        fragmentManager?.beginTransaction()?.replace(R.id.main_frame, fragment)
-                ?.commit()
+        fragmentManager?.beginTransaction()?.replace(R.id.main_frame, fragment, fragment.javaClass.name)
+                ?.addToBackStack(fragment.javaClass.name)?.commit()
     }
 }

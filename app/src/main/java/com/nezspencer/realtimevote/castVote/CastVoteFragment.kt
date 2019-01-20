@@ -29,7 +29,7 @@ class CastVoteFragment : Fragment() {
         binding.rvBallots.adapter = adapter
         baseActivity.run {
 
-            getViewModel().electionList.observe(this, Observer<Pair<DatabaseError?,
+            getViewModel().electionData.observe(this, Observer<Pair<DatabaseError?,
                     List<Election>>> {
                 if (it == null)
                     return@Observer

@@ -7,7 +7,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 
-class ElectionListLiveData(private val query: DatabaseReference) :
+class ElectionListLiveData(private var query: DatabaseReference) :
         LiveData<Pair<DatabaseError?, List<Election>>>(),
         ValueEventListener {
 
@@ -50,6 +50,13 @@ class ElectionListLiveData(private val query: DatabaseReference) :
             }
         }
         value = Pair(null, electionList)
+    }
+
+    fun changeNode(reference: DatabaseReference) {
+        query.removeEventListener(this)
+        query = reference
+        query.addValueEventListener(this)
+
     }
 
     /*override fun onEvent(p0: QuerySnapshot?, p1: FirebaseFirestoreException?) {
