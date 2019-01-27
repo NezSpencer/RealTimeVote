@@ -1,31 +1,30 @@
-package com.nezspencer.realtimevote.auth
+package com.nezspencer.realtimevote
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
-import com.nezspencer.realtimevote.BuildConfig
+import com.google.firebase.auth.FirebaseUser
 import com.nezspencer.realtimevote.Dashboard.HomeFragment
-import com.nezspencer.realtimevote.R
-import com.nezspencer.realtimevote.model.AppActivityLifecycleObserver
-import com.nezspencer.realtimevote.model.FirebaseRepository
+import com.nezspencer.realtimevote.auth.AppViewModel
+import com.nezspencer.realtimevote.auth.AppViewModelFactory
 
 class AppActivity : AppCompatActivity() {
 
-    private lateinit var firebaseRepository: FirebaseRepository
     private lateinit var appViewModel: AppViewModel
-    private lateinit var activityObserver: AppActivityLifecycleObserver
     val RC_SIGN_IN = 1003
+
+    companion object {
+        const val KEY_EMAIL = "user_email_"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
-        appViewModel = ViewModelProviders.of(this).get(AppViewModel::class.java)
-        firebaseRepository = FirebaseRepository(appViewModel)
-        activityObserver = AppActivityLifecycleObserver(firebaseRepository, this.lifecycle)
-        this.lifecycle.addObserver(activityObserver)
-        appViewModel.authLiveData.observe(this, Observer<FirebaseAuth> {
+        appViewModel = ViewModelProviders.of(this, AppViewModelFactory(application)).get(AppViewModel::class.java)
+        appViewModel.authLivedata.observe(this, Observer<FirebaseAuth> {
             val user = it?.currentUser
             if (user == null)
                 startActivityForResult(
@@ -39,13 +38,17 @@ class AppActivity : AppCompatActivity() {
                                 .build(),
                         RC_SIGN_IN)
             else {
-                onAuthSuccessful()
+                onAuthSuccessful(user)
             }
         })
 
     }
 
-    private fun onAuthSuccessful() {
+    private fun onAuthSuccessful(user: FirebaseUser) {
+        PreferenceManager.getDefaultSharedPreferences(this).edit()
+                .putString(KEY_EMAIL, user.email).apply()
         supportFragmentManager.beginTransaction().replace(R.id.main_frame, HomeFragment()).commitAllowingStateLoss()
     }
+
+    fun getViewModel() = appViewModel
 }

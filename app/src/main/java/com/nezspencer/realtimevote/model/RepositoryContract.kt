@@ -8,4 +8,7 @@ interface RepositoryContract {
     fun getContestants()
 
     fun onAppAuthStateChanged(auth: FirebaseAuth)
+
+    fun onElectionFetched(elections: List<Election>)
+
 }

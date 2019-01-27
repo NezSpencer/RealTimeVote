@@ -6,9 +6,9 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.nezspencer.realtimevote.App
-import com.nezspencer.realtimevote.Contestant
 import com.nezspencer.realtimevote.databinding.ContestantEmptyBinding
 import com.nezspencer.realtimevote.databinding.ContestantItemBinding
+import com.nezspencer.realtimevote.model.Contestant
 
 class AddContestantAdapter(private val PARENT_POSITION: Int) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -51,11 +51,11 @@ class AddContestantAdapter(private val PARENT_POSITION: Int) :
                 }
 
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    contestants[holder.adapterPosition].name = p0.toString()
+                    contestants[holder.adapterPosition].publicName = p0.toString()
                 }
             })
             contentHolder.itemBinding.etContestantName.setText(contestants[contentHolder
-                    .adapterPosition].name)
+                    .adapterPosition].publicName)
 
 
         }

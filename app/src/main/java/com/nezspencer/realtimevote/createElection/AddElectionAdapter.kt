@@ -7,8 +7,8 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.nezspencer.realtimevote.App
-import com.nezspencer.realtimevote.Election
 import com.nezspencer.realtimevote.databinding.BallotItemBinding
+import com.nezspencer.realtimevote.model.Election
 
 
 class AddElectionAdapter(private val context: Context) :
