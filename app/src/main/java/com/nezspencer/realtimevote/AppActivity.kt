@@ -24,7 +24,7 @@ class AppActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
         appViewModel = ViewModelProviders.of(this, AppViewModelFactory(application)).get(AppViewModel::class.java)
-        appViewModel.authLiveData.observe(this, Observer<FirebaseAuth> {
+        appViewModel.authLivedata.observe(this, Observer<FirebaseAuth> {
             val user = it?.currentUser
             if (user == null)
                 startActivityForResult(

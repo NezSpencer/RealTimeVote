@@ -16,13 +16,14 @@ import com.nezspencer.realtimevote.model.Election
 class AppViewModel(application: Application) : AndroidViewModel(application), ValueEventListener,
         FirebaseAuth.AuthStateListener {
 
-    val electionUploadStatus = MutableLiveData<Status>()
-    private val database = FirebaseDatabase.getInstance().reference.child("Election")
-    /*val electionList = ElectionListLiveData(database
-            .child("registered/${getUserEmail(application).removeDots()}"))*/
-    val appDB = AppDB(database, electionUploadStatus, this)
-    val repository = ElectionRepositoryImpl(appDB)
+    init {
+        FirebaseAuth.getInstance().addAuthStateListener(this)
+    }
 
+    val electionUploadStatus = MutableLiveData<Status>()
+    private val database = FirebaseDatabase.getInstance().reference
+    val appDB = AppDB(database, electionUploadStatus)
+    val repository = ElectionRepositoryImpl(appDB)
     var electionData = MutableLiveData<Pair<DatabaseError?, List<Election>>>()
     var authLivedata = MutableLiveData<FirebaseAuth>()
 
@@ -56,7 +57,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application), Va
         authLivedata.value = p0
 
         p0.currentUser?.let {
-            database.child("registered/${it.email!!.removeDots()}")
+            database.child(getSubscribedPath(it.email!!))
                     .addValueEventListener(this)
         }
 
