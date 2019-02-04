@@ -22,7 +22,7 @@ fun ArrayList<Election>.toDomainElectionModel(): ArrayList<com.nezspencer.domain
 
 fun Contestant.toDomainContestantModel() = com.nezspencer.domain.entity.Contestant(id, publicName)
 
-fun ArrayList<Contestant>.toDomainContestantList(): ArrayList<com.nezspencer.domain.entity.Contestant> {
+fun MutableList<Contestant>.toDomainContestantList(): MutableList<com.nezspencer.domain.entity.Contestant> {
     val result = ArrayList<com.nezspencer.domain.entity.Contestant>()
     for (contestant in this)
         result.add(contestant.toDomainContestantModel())

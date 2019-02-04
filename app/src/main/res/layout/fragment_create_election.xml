@@ -16,7 +16,7 @@
             app:cardCornerRadius="@dimen/default_card_corner_curve"
             app:cardElevation="@dimen/default_card_elevation">
 
-            <TextView
+            <EditText
                 android:id="@+id/tv_add_new_election"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,6 +35,7 @@
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/inter_block_margin"
             android:orientation="vertical"
+            android:layout_marginStart="@dimen/large_gutter"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
         <android.support.design.widget.FloatingActionButton
@@ -47,5 +48,17 @@
             android:layout_alignParentBottom="true"
             android:src="@drawable/ic_vote"
             android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_end_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rv_vote_list"
+            android:layout_marginTop="@dimen/inter_block_margin"
+            android:background="?attr/colorAccent"
+            android:padding="@dimen/inter_view_margin"
+            android:text="@string/end_date"
+            android:textColor="@color/app_white"
+            android:textStyle="bold" />
     </RelativeLayout>
 </layout>

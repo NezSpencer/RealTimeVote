@@ -10,8 +10,13 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.nezspencer.data.repository.ElectionRepositoryImpl
 import com.nezspencer.domain.usecase.CreateElectionUsecase
-import com.nezspencer.realtimevote.*
+import com.nezspencer.realtimevote.AppDB
+import com.nezspencer.realtimevote.Status
+import com.nezspencer.realtimevote.getSubscribedPath
 import com.nezspencer.realtimevote.model.Election
+import com.nezspencer.realtimevote.toDomainElectionModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class AppViewModel(application: Application) : AndroidViewModel(application), ValueEventListener,
         FirebaseAuth.AuthStateListener {
@@ -27,11 +32,11 @@ class AppViewModel(application: Application) : AndroidViewModel(application), Va
     var electionData = MutableLiveData<Pair<DatabaseError?, List<Election>>>()
     var authLivedata = MutableLiveData<FirebaseAuth>()
 
-    fun createElection(email: String) {
+    fun createElection(email: String, election: Election) {
         val postElection = CreateElectionUsecase(repository,
-                App.elections.toDomainElectionModel(),
+                election.toDomainElectionModel(),
                 email)
-        postElection()
+        GlobalScope.launch { postElection() }
     }
 
     fun resetUploadStatus() {

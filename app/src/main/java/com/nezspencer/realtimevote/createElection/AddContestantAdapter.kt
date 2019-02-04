@@ -5,15 +5,13 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.nezspencer.realtimevote.App
 import com.nezspencer.realtimevote.databinding.ContestantEmptyBinding
 import com.nezspencer.realtimevote.databinding.ContestantItemBinding
 import com.nezspencer.realtimevote.model.Contestant
 
-class AddContestantAdapter(private val PARENT_POSITION: Int) :
+class AddContestantAdapter(private val contestants: MutableList<Contestant>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var contestants: ArrayList<Contestant> = App.elections[PARENT_POSITION].contestants
     private val ITEM_FOOTER: Int = 0
     private val ITEM_CONTENT: Int = 1
 
