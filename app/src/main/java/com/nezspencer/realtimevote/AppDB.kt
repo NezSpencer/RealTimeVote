@@ -1,7 +1,6 @@
 package com.nezspencer.realtimevote
 
 import android.arch.lifecycle.MutableLiveData
-import android.util.Log
 import com.google.firebase.database.DatabaseReference
 import com.nezspencer.domain.Database
 import com.nezspencer.domain.entity.Election
@@ -22,7 +21,6 @@ class AppDB(private val firebaseDatabase: DatabaseReference,
         val map = mutableMapOf<String, Any>()
         map[getSubscribedPath(email, electionKey)] = election
         map[getAllElectionsPath(electionKey)] = election
-        Log.e("test", map.toString())
         return suspendCoroutine {
             firebaseDatabase.updateChildren(map) { p0, _ ->
                 status.postValue(if (p0 == null) Status.Success else Status.error(p0.message))

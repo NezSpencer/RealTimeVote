@@ -4,9 +4,9 @@ import com.nezspencer.domain.ElectionRepository
 import com.nezspencer.domain.entity.Election
 
 class FakeElectionRepo : ElectionRepository {
-    val database = mutableMapOf<String, MutableList<Election>>()
+    private val database = mutableMapOf<String, MutableList<Election>>()
     override fun listenToDifferentNode(path: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override suspend fun createElection(email: String, election: Election): Boolean {
