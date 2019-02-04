@@ -7,6 +7,11 @@ apply plugin: 'kotlin'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation 'junit:junit:4.12'
+    //coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0"
+    testImplementation 'org.mockito:mockito-inline:2.8.47'
 }
 
 sourceCompatibility = "7"

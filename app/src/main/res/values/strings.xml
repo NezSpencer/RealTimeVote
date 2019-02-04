@@ -6,4 +6,5 @@
     <string name="contestant_name">Contestant name</string>
     <string name="add_new_election">Add new Election</string>
     <string name="election_name">Election name</string>
+    <string name="end_date">Select end date</string>
 </resources>

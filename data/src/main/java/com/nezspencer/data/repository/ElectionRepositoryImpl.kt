@@ -9,8 +9,8 @@ class ElectionRepositoryImpl(private val database: Database) : ElectionRepositor
         database.switchNode(path)
     }
 
-    override fun createElection(email: String, election: List<Election>) {
-        database.createElection(email, election)
+    override suspend fun createElection(email: String, election: Election): Boolean {
+        return database.createElection(email, election)
     }
 
 

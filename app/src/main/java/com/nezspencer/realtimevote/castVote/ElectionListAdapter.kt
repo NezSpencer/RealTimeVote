@@ -1,13 +1,15 @@
 package com.nezspencer.realtimevote.castVote
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.nezspencer.realtimevote.databinding.BallotItemBinding
 import com.nezspencer.realtimevote.model.Election
 
-class ElectionListAdapter(private val list: List<Election>) : RecyclerView.Adapter<ElectionListAdapter
-.Holder>() {
+class ElectionListAdapter(private val context: Context,
+                          private val list: List<Election>) : RecyclerView.Adapter<ElectionListAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding = BallotItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return Holder(binding)
@@ -16,8 +18,11 @@ class ElectionListAdapter(private val list: List<Election>) : RecyclerView.Adapt
     override fun getItemCount() = list.size
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
+        val election = list[holder.adapterPosition]
         holder.binding.etElectoralPosition.setText(list[holder.adapterPosition].electoralSeat)
         holder.binding.etElectoralPosition.isEnabled = false
+        holder.binding.btnEndDate.text = DateUtils.getRelativeDateTimeString(context, election
+                .endDate, 60000, 259200000, DateUtils.FORMAT_ABBREV_ALL)
         holder.binding.rvContestants.adapter = ContestantsAdapter(list[holder.adapterPosition].contestants)
     }
 

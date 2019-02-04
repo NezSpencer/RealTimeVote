@@ -25,7 +25,7 @@ class CastVoteFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentCastVoteBinding.inflate(inflater)
-        val adapter = ElectionListAdapter(elections)
+        val adapter = ElectionListAdapter(baseActivity, elections)
         binding.rvBallots.adapter = adapter
         baseActivity.run {
 

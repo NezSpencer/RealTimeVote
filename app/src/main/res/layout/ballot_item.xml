@@ -39,10 +39,21 @@
                     android:layout_below="@+id/et_electoral_position"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginStart="@dimen/inter_block_margin"
+                    android:layout_marginStart="@dimen/large_gutter"
                     android:layout_marginTop="@dimen/inter_block_margin"
                     android:orientation="vertical"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+                <TextView
+                    android:id="@+id/btn_end_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rv_contestants"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/inter_block_margin"
+                    android:text="@string/end_date"
+                    android:textSize="12sp"
+                    android:textStyle="italic" />
 
 
             </RelativeLayout>
