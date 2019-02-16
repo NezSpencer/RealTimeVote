@@ -5,8 +5,9 @@ import com.nezspencer.domain.entity.Election
 
 class FakeElectionRepo : ElectionRepository {
     private val database = mutableMapOf<String, MutableList<Election>>()
-    override fun listenToDifferentNode(path: String) {
-
+    private val voteRecord = mutableMapOf<String, String>()
+    override suspend fun checkIfUserHasVoted(electionId: String, email: String): Boolean {
+        return voteRecord[electionId] == email
     }
 
     override suspend fun createElection(email: String, election: Election): Boolean {
@@ -16,5 +17,10 @@ class FakeElectionRepo : ElectionRepository {
         database[key] = list
 
         return database.containsKey(key)
+    }
+
+    override suspend fun vote(email: String, contestantId: String, electionId: String): Boolean {
+        voteRecord[electionId] = email
+        return true
     }
 }

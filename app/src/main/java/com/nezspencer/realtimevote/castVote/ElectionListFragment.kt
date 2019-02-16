@@ -13,19 +13,19 @@ import com.nezspencer.realtimevote.AppActivity
 import com.nezspencer.realtimevote.databinding.FragmentCastVoteBinding
 import com.nezspencer.realtimevote.model.Election
 
-class CastVoteFragment : Fragment() {
+class ElectionListFragment : Fragment(), ElectionListAdapter.ElectionItemCLickListener {
 
     private lateinit var baseActivity: AppActivity
     private lateinit var binding: FragmentCastVoteBinding
     private val elections = ArrayList<Election>()
 
     companion object {
-        fun newInstance() = CastVoteFragment()
+        fun newInstance() = ElectionListFragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentCastVoteBinding.inflate(inflater)
-        val adapter = ElectionListAdapter(baseActivity, elections)
+        val adapter = ElectionListAdapter(baseActivity, elections, this)
         binding.rvBallots.adapter = adapter
         baseActivity.run {
 
@@ -51,5 +51,9 @@ class CastVoteFragment : Fragment() {
         super.onAttach(context)
         if (context is AppActivity)
             baseActivity = context
+    }
+
+    override fun onItemClicked(election: Election) {
+        baseActivity.swapFragment(ElectionDetailFragment.newInstance(election))
     }
 }

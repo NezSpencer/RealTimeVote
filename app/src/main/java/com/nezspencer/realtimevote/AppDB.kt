@@ -29,7 +29,21 @@ class AppDB(private val firebaseDatabase: DatabaseReference,
         }
     }
 
-    override fun switchNode(path: String) {
+    override suspend fun hasUserVoted(electionId: String, email: String): Boolean {
+        return false
+    }
 
+    override suspend fun vote(email: String, contestantId: String, electionId: String): Boolean {
+        status.postValue(Status.Running)
+        val map = mutableMapOf<String, Any?>()
+        map[getResultsPath(electionId, contestantId)] = email
+        map[getVoteStatusPath(electionId, email.removeDots())] = "voted"
+        map[getSubscribedPath(email.removeDots(), electionId)] = null
+        return suspendCoroutine {
+            firebaseDatabase.updateChildren(map) { p0, _ ->
+                status.postValue(if (p0 == null) Status.Success else Status.error(p0.message))
+                it.resume(p0 == null)
+            }
+        }
     }
 }

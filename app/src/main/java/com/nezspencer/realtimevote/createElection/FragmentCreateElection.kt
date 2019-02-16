@@ -13,25 +13,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.Toast
-import com.nezspencer.realtimevote.AppActivity
-import com.nezspencer.realtimevote.State
-import com.nezspencer.realtimevote.Status
+import com.nezspencer.realtimevote.*
 import com.nezspencer.realtimevote.auth.AppViewModel
-import com.nezspencer.realtimevote.databinding.FragmentCreateElectionBinding
-import com.nezspencer.realtimevote.getUserEmail
+import com.nezspencer.realtimevote.databinding.LayoutElectionBinding
 import com.nezspencer.realtimevote.model.Contestant
 import com.nezspencer.realtimevote.model.Election
 import java.util.*
 
-class FragmentCreateElection : Fragment(), DatePickerDialog.OnDateSetListener {
+class FragmentCreateElection : Fragment(), DatePickerDialog.OnDateSetListener,
+        AddContestantAdapter.ContestantSelectionListener {
 
     private lateinit var activity: AppActivity
-    private lateinit var binding: FragmentCreateElectionBinding
+    private lateinit var binding: LayoutElectionBinding
     private lateinit var viewModel: AppViewModel
     private lateinit var contestantAdapter: AddContestantAdapter
     private val contestants = mutableListOf(Contestant())
     private var electoralSeat = ""
-    val calendar = Calendar.getInstance()
+    private var title = ""
+    private val calendar = Calendar.getInstance()
     private val datePickerDialog by lazy {
         DatePickerDialog(activity, this, calendar[Calendar.YEAR],
                 calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH])
@@ -39,8 +38,8 @@ class FragmentCreateElection : Fragment(), DatePickerDialog.OnDateSetListener {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentCreateElectionBinding.inflate(layoutInflater)
-        contestantAdapter = AddContestantAdapter(contestants)
+        binding = LayoutElectionBinding.inflate(layoutInflater)
+        contestantAdapter = AddContestantAdapter(contestants, listener = this)
         binding.rvVoteList.adapter = contestantAdapter
         activity.run {
             viewModel = ViewModelProviders.of(this)[AppViewModel::class.java]
@@ -62,8 +61,20 @@ class FragmentCreateElection : Fragment(), DatePickerDialog.OnDateSetListener {
                 }
             }
         })
+        binding.etElectionSummary.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
 
-        binding.tvAddNewElection.addTextChangedListener(object : TextWatcher {
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                p0?.let { title = it.toString() }
+            }
+        })
+        binding.etElectionSeat.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -72,9 +83,17 @@ class FragmentCreateElection : Fragment(), DatePickerDialog.OnDateSetListener {
                 p0?.let { electoralSeat = it.toString() }
             }
         })
+
+
         binding.fabVoteAction.setOnClickListener {
-            viewModel.createElection(getUserEmail(activity), Election(electoralSeat, contestants,
-                    calendar.timeInMillis))
+            val email = getUserEmail(activity)
+            viewModel.createElection(email.removeDots(),
+                    Election(title,
+                            electoralSeat,
+                            contestants,
+                            calendar.timeInMillis,
+                            getUserName(activity),
+                            email))
         }
 
         binding.btnEndDate.setOnClickListener { showDatePicker() }
@@ -106,5 +125,9 @@ class FragmentCreateElection : Fragment(), DatePickerDialog.OnDateSetListener {
         calendar[Calendar.DAY_OF_MONTH] = p3 + 1
         binding.btnEndDate.text = "$p3 ${calendar.getDisplayName(Calendar.MONTH, Calendar.LONG,
                 Locale.ENGLISH)}, $p1"
+    }
+
+    override fun onContestantSelected(contestantId: String) {
+
     }
 }

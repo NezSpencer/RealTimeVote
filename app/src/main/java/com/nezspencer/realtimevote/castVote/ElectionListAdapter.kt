@@ -2,16 +2,19 @@ package com.nezspencer.realtimevote.castVote
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.nezspencer.realtimevote.databinding.BallotItemBinding
+import com.nezspencer.realtimevote.databinding.ItemMainListBinding
+import com.nezspencer.realtimevote.getAppPrettyDate
+import com.nezspencer.realtimevote.getUserEmail
 import com.nezspencer.realtimevote.model.Election
 
 class ElectionListAdapter(private val context: Context,
-                          private val list: List<Election>) : RecyclerView.Adapter<ElectionListAdapter.Holder>() {
+                          private val list: List<Election>,
+                          private val listener: ElectionItemCLickListener)
+    : RecyclerView.Adapter<ElectionListAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val binding = BallotItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemMainListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return Holder(binding)
     }
 
@@ -19,12 +22,20 @@ class ElectionListAdapter(private val context: Context,
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val election = list[holder.adapterPosition]
-        holder.binding.etElectoralPosition.setText(list[holder.adapterPosition].electoralSeat)
-        holder.binding.etElectoralPosition.isEnabled = false
-        holder.binding.btnEndDate.text = DateUtils.getRelativeDateTimeString(context, election
-                .endDate, 60000, 259200000, DateUtils.FORMAT_ABBREV_ALL)
-        holder.binding.rvContestants.adapter = ContestantsAdapter(list[holder.adapterPosition].contestants)
+        holder.binding.tvSummaryText.text = election.title
+        holder.binding.tvCreatedBy.text =
+                if (election.creatorEmail == (getUserEmail(context))) "You"
+                else election.creator
+        holder.binding.tvEndDate.text = getAppPrettyDate(context, election.endDate)
+
+        holder.binding.root.setOnClickListener {
+            listener.onItemClicked(election)
+        }
     }
 
-    inner class Holder(val binding: BallotItemBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class Holder(val binding: ItemMainListBinding) : RecyclerView.ViewHolder(binding.root)
+
+    interface ElectionItemCLickListener {
+        fun onItemClicked(election: Election)
+    }
 }
