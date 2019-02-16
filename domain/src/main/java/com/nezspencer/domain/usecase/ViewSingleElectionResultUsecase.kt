@@ -1,3 +1,0 @@
-package com.nezspencer.domain.usecase
-
-class ViewSingleElectionResultUsecase

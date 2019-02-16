@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
@@ -19,6 +20,7 @@ class AppActivity : AppCompatActivity() {
 
     companion object {
         const val KEY_EMAIL = "user_email_"
+        const val KEY_USERNAME = "user_name_"
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +48,15 @@ class AppActivity : AppCompatActivity() {
 
     private fun onAuthSuccessful(user: FirebaseUser) {
         PreferenceManager.getDefaultSharedPreferences(this).edit()
-                .putString(KEY_EMAIL, user.email).apply()
-        supportFragmentManager.beginTransaction().replace(R.id.main_frame, HomeFragment()).commitAllowingStateLoss()
+                .putString(KEY_EMAIL, user.email)
+                .putString(KEY_USERNAME, user.displayName ?: "")
+                .apply()
+        swapFragment(HomeFragment())
     }
+
+    fun swapFragment(fragment: Fragment) =
+            supportFragmentManager.beginTransaction().replace(R.id.main_frame, fragment, fragment.javaClass.name)
+                    .addToBackStack(fragment.javaClass.name).commit()
 
     fun getViewModel() = appViewModel
 }

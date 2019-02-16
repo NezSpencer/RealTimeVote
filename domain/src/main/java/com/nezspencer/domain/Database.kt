@@ -5,5 +5,7 @@ import com.nezspencer.domain.entity.Election
 interface Database {
     suspend fun createElection(email: String, election: Election): Boolean
 
-    fun switchNode(path: String)
+    suspend fun hasUserVoted(electionId: String, email: String): Boolean
+
+    suspend fun vote(email: String, contestantId: String, electionId: String): Boolean
 }

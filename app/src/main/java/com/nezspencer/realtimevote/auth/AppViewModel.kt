@@ -10,6 +10,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.nezspencer.data.repository.ElectionRepositoryImpl
 import com.nezspencer.domain.usecase.CreateElectionUsecase
+import com.nezspencer.domain.usecase.VoteContestantUsecase
 import com.nezspencer.realtimevote.AppDB
 import com.nezspencer.realtimevote.Status
 import com.nezspencer.realtimevote.getSubscribedPath
@@ -27,8 +28,8 @@ class AppViewModel(application: Application) : AndroidViewModel(application), Va
 
     val electionUploadStatus = MutableLiveData<Status>()
     private val database = FirebaseDatabase.getInstance().reference
-    val appDB = AppDB(database, electionUploadStatus)
-    val repository = ElectionRepositoryImpl(appDB)
+    private val appDB = AppDB(database, electionUploadStatus)
+    private val repository = ElectionRepositoryImpl(appDB)
     var electionData = MutableLiveData<Pair<DatabaseError?, List<Election>>>()
     var authLivedata = MutableLiveData<FirebaseAuth>()
 
@@ -37,6 +38,11 @@ class AppViewModel(application: Application) : AndroidViewModel(application), Va
                 election.toDomainElectionModel(),
                 email)
         GlobalScope.launch { postElection() }
+    }
+
+    fun voteContestant(email: String, electionId: String, contestantId: String) {
+        val voteUsecase = VoteContestantUsecase(repository, contestantId, email, electionId)
+        GlobalScope.launch { voteUsecase() }
     }
 
     fun resetUploadStatus() {
