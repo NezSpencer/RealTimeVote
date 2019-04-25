@@ -11,7 +11,13 @@ class ElectionRepositoryImpl(private val database: Database) : ElectionRepositor
         return database.createElection(email, election)
     }
 
-    override suspend fun vote(email: String, contestantId: String, electionId: String): Boolean {
-        return database.vote(email, contestantId, electionId)
+    override suspend fun vote(email: String, contestantId: String, electionId: String,
+                              electionTitle: String, electoralSeat: String, endDate: Long):
+            Boolean {
+        return database.vote(email, contestantId, electionId, electionTitle, electoralSeat, endDate)
+    }
+
+    override fun getElectionResults() {
+        database.getElectionResults()
     }
 }

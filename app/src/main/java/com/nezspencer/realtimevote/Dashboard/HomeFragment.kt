@@ -10,6 +10,7 @@ import com.nezspencer.realtimevote.AppActivity
 import com.nezspencer.realtimevote.castVote.ElectionListFragment
 import com.nezspencer.realtimevote.createElection.FragmentCreateElection
 import com.nezspencer.realtimevote.databinding.FragmentHomeBinding
+import com.nezspencer.realtimevote.result.ResultListFragment
 
 
 class HomeFragment : Fragment() {
@@ -20,6 +21,7 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater)
         binding.btnCreateVote.setOnClickListener { dashboard.swapFragment(FragmentCreateElection()) }
         binding.btnVote.setOnClickListener { dashboard.swapFragment(ElectionListFragment.newInstance()) }
+        binding.btnSeeResult.setOnClickListener { dashboard.swapFragment(ResultListFragment.newInstance()) }
         return binding.root
     }
 

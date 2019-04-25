@@ -19,8 +19,13 @@ class FakeElectionRepo : ElectionRepository {
         return database.containsKey(key)
     }
 
-    override suspend fun vote(email: String, contestantId: String, electionId: String): Boolean {
+    override suspend fun vote(email: String, contestantId: String, electionId: String,
+                              electionTitle: String, electoralSeat: String, endDate: Long): Boolean {
         voteRecord[electionId] = email
         return true
+    }
+
+    override fun getElectionResults() {
+
     }
 }

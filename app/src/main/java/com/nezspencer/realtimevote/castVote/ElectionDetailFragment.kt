@@ -60,7 +60,7 @@ class ElectionDetailFragment : Fragment(), AddContestantAdapter.ContestantSelect
         binding.btnEndDate.visibility = View.GONE
         binding.tvEndDate.text = getAppPrettyDate(appActivity, election.endDate)
         binding.fabVoteAction.setOnClickListener {
-            viewModel.voteContestant(getUserEmail(appActivity), election.id, contestantId)
+            viewModel.voteContestant(getUserEmail(appActivity), election, contestantId)
         }
         return binding.root
     }

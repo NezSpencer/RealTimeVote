@@ -7,7 +7,10 @@ interface ElectionRepository {
 
     suspend fun createElection(email: String, election: Election): Boolean
 
-    suspend fun vote(email: String, contestantId: String, electionId: String): Boolean
+    suspend fun vote(email: String, contestantId: String, electionId: String,
+                     electionTitle: String, electoralSeat: String, endDate: Long): Boolean
 
+    fun getElectionResults()
 
+    //fun getSingleElectionResult(electionId: String)
 }

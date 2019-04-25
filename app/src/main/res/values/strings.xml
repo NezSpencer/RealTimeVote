@@ -2,6 +2,7 @@
     <string name="app_name">RealTimeVote</string>
     <string name="create_vote">Create Vote</string>
     <string name="vote">Vote</string>
+    <string name="see_result">View Results</string>
     <string name="add_contestant">Add contestant</string>
     <string name="contestant_name">Contestant name</string>
     <string name="add_new_election">Add new Election</string>

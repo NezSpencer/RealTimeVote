@@ -204,8 +204,20 @@ class CreateElectionUsecaseTest {
         val repo = FakeElectionRepo()
         val testEmail = "nuhiara@gmail.com"
         val contestantId = ""
-        val electionId = "23"
-        val voteUsecase = VoteContestantUsecase(repo, contestantId, testEmail, electionId)
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.YEAR, 1)
+        val date = cal.timeInMillis
+        val election = Election(
+                "test election",
+                "test",
+                mutableListOf(),
+                date,
+                "me",
+                testEmail,
+                "id1"
+
+        )
+        val voteUsecase = VoteContestantUsecase(repo, contestantId, testEmail, election)
         runBlocking {
             assert(!voteUsecase())
         }
@@ -217,7 +229,20 @@ class CreateElectionUsecaseTest {
         val testEmail = "nuhiara@gmail.com"
         val contestantId = "23"
         val electionId = ""
-        val voteUsecase = VoteContestantUsecase(repo, contestantId, testEmail, electionId)
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.YEAR, 1)
+        val date = cal.timeInMillis
+        val election = Election(
+                "test election",
+                "test",
+                mutableListOf<Contestant>(),
+                date,
+                "me",
+                testEmail,
+                electionId
+
+        )
+        val voteUsecase = VoteContestantUsecase(repo, contestantId, testEmail, election)
         runBlocking {
             assert(!voteUsecase())
         }
@@ -229,46 +254,97 @@ class CreateElectionUsecaseTest {
         val testEmail = ""
         val contestantId = "23"
         val electionId = "1"
-        val voteUsecase = VoteContestantUsecase(repo, contestantId, testEmail, electionId)
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.YEAR, 1)
+        val date = cal.timeInMillis
+        val election = Election(
+                "test election",
+                "test",
+                mutableListOf(),
+                date,
+                "me",
+                "e@g.com",
+                electionId
+
+        )
+        val voteUsecase = VoteContestantUsecase(repo, contestantId, testEmail, election)
         runBlocking {
             assert(!voteUsecase())
         }
     }
 
     @Test
-    fun shouldPostVoteIfEmailElectionIdAndContestantIdAreNotEmpty() {
+    fun shouldNotPostVoteIfElectionTitleFieldIsEmpty() {
         val repo = FakeElectionRepo()
         val testEmail = "nuhiara@gmail.com"
         val contestantId = "23"
         val electionId = "2"
-        val voteUsecase = VoteContestantUsecase(repo, contestantId, testEmail, electionId)
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.YEAR, 1)
+        val date = cal.timeInMillis
+        val election = Election(
+                "",
+                "test",
+                mutableListOf(),
+                date,
+                "me",
+                testEmail,
+                electionId
+
+        )
+        val voteUsecase = VoteContestantUsecase(repo, contestantId, testEmail, election)
+        runBlocking {
+            assert(!voteUsecase())
+        }
+    }
+
+    @Test
+    fun shouldNotPostVoteIfElectoralSeatFieldIsEmpty() {
+        val repo = FakeElectionRepo()
+        val testEmail = "nuhiara@gmail.com"
+        val contestantId = "23"
+        val electionId = "2"
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.YEAR, 1)
+        val date = cal.timeInMillis
+        val election = Election(
+                "test election",
+                "",
+                mutableListOf(),
+                date,
+                "me",
+                testEmail,
+                electionId
+
+        )
+        val voteUsecase = VoteContestantUsecase(repo, contestantId, testEmail, election)
+        runBlocking {
+            assert(!voteUsecase())
+        }
+    }
+
+    @Test
+    fun shouldPostVoteIfAllParametersAreValid() {
+        val repo = FakeElectionRepo()
+        val testEmail = "nuhiara@gmail.com"
+        val contestantId = "23"
+        val electionId = "2"
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.YEAR, 1)
+        val date = cal.timeInMillis
+        val election = Election(
+                "test election",
+                "test",
+                mutableListOf(),
+                date,
+                "me",
+                testEmail,
+                electionId
+
+        )
+        val voteUsecase = VoteContestantUsecase(repo, contestantId, testEmail, election)
         runBlocking {
             assert(voteUsecase())
         }
-    }
-
-    @Test
-    fun shouldReturnFalseIfUserHasNotVoted() {
-        val repo = FakeElectionRepo()
-        val verifyVote = VerifyUserVoteStatusUsecase(repo, "4", "nuhiara@gmail.com")
-        runBlocking {
-
-            assert(!verifyVote())
-        }
-    }
-
-    @Test
-    fun shouldReturnTrueIfUserHasVoted() {
-        val repo = FakeElectionRepo()
-        val testEmail = "nuhiara@gmail.com"
-        val contestantId = "23"
-        val electionId = "2"
-        val voteUsecase = VoteContestantUsecase(repo, contestantId, testEmail, electionId)
-        val verifyVote = VerifyUserVoteStatusUsecase(repo, electionId, testEmail)
-        runBlocking {
-            voteUsecase()
-            assert(verifyVote())
-        }
-
     }
 }

@@ -39,9 +39,13 @@ fun getSubscribedPath(email: String, electionKey: String = "") =
 
 fun getAllElectionsPath(electionKey: String) = "/all/$electionKey"
 
-fun getResultsPath(electionId: String, contestantId: String) = "/results/$electionId/$contestantId"
+fun getContestantVotePath(electionId: String, contestantId: String, voteKey: String) = "/results/$electionId/votes/$contestantId/$voteKey"
 
 fun getVoteStatusPath(electionId: String, email: String) = "Voted/$electionId/$email"
 
 fun getAppPrettyDate(context: Context, date: Long) = DateUtils.getRelativeDateTimeString(context,
         date, 60000, 259200000, DateUtils.FORMAT_ABBREV_ALL)
+
+fun getVoteExtraPath(electionId: String) = "/results/$electionId/extras"
+
+fun getResultListPath() = "results/"

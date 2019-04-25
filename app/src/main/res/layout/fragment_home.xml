@@ -59,5 +59,20 @@
             android:layout_width="0dp"
             android:layout_height="60dp" />
 
+        <Button
+            android:id="@+id/btn_see_result"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorAccent"
+            android:text="@string/see_result"
+            android:textColor="@color/app_white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/v2"
+            app:layout_constraintLeft_toRightOf="@+id/v1"
+            app:layout_constraintRight_toLeftOf="@+id/v2"
+            app:layout_constraintStart_toEndOf="@+id/v1"
+            app:layout_constraintTop_toBottomOf="@+id/btn_create_vote" />
+
     </android.support.constraint.ConstraintLayout>
 </layout>

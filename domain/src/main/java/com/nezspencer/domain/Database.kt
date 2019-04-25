@@ -7,5 +7,8 @@ interface Database {
 
     suspend fun hasUserVoted(electionId: String, email: String): Boolean
 
-    suspend fun vote(email: String, contestantId: String, electionId: String): Boolean
+    suspend fun vote(email: String, contestantId: String, electionId: String,
+                     electionTitle: String, electoralSeat: String, endDate: Long): Boolean
+
+    fun getElectionResults()
 }
